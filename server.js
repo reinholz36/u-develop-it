@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const mysql = require('mysql2');
 
 
 
@@ -12,6 +13,18 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 
+// Connect to SQl database
+const db = mysql.createConnection(
+    {
+        host: 'localhost',
+        // Your MySQL username,
+        user: 'root',
+        // Your MySQL password
+        password: 'root',
+        database: 'election'
+    },
+    console.log('Connected to the election database.')
+);
 
 // Default response for any other request (Not Found) Always place at end of list for app.use as it will overide 
 app.use((req, res) => {
